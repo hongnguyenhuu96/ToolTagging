@@ -1,0 +1,6 @@
+Object:obj
+Action:act
+Property:pty
+Date time:dt
+Price: prc
+Number: num
