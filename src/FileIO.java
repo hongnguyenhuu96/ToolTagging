@@ -185,12 +185,7 @@ public class FileIO {
         try {
             fileOutputStream = new FileOutputStream(file);
             Writer writer = new java.io.OutputStreamWriter(fileOutputStream, "utf8");
-            CSVWriter csvWriter = new CSVWriter(writer,
-                    CSVWriter.DEFAULT_SEPARATOR,
-                    CSVWriter.NO_QUOTE_CHARACTER,
-                    CSVWriter.DEFAULT_ESCAPE_CHARACTER,
-                    CSVWriter.DEFAULT_LINE_END
-            );
+            CSVWriter csvWriter = new CSVWriter(writer);
             for (int i = 0; i < sentences.size(); i++) {
                 csvWriter.writeNext(new String[]{sentences.get(i).getContent(), sentences.get(i).getStatus()});
             }

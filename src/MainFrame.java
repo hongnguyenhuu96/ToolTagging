@@ -64,8 +64,8 @@ public class MainFrame extends javax.swing.JFrame {
     File sentenceFile = null; // file contains all sentences need to be tagged
     File taggedFile = null; // file to save to current stage of all sentences in tagging process
 
-//    File labelFile = new File("label.txt");
-//    File sentenceFile = new File("sentences.csv");
+//    File labelFile = new File("/home/hong/Desktop/code/ToolTagging/label.txt");
+//    File sentenceFile = new File("/home/hong/Desktop/code/ToolTagging/tagged_sentences.csv");
 //    File taggedFile = null;
     
     /**
@@ -116,7 +116,7 @@ public class MainFrame extends javax.swing.JFrame {
         sizeLabel = labels.size();
         for (int i = 0; i < sizeLabel; i++) {
             JCheckBox aCbLabel = new JCheckBox(labels.get(i).name);
-            aCbLabel.setFont(new java.awt.Font("Tahoma", 1, 11));
+            aCbLabel.setFont(new java.awt.Font("DejaVu Serif", 1, 11));
             cbLabel.add(aCbLabel);
             btgrLabels.add(aCbLabel);
         }
@@ -342,6 +342,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
         jPanel2.add(btRemove);
 
+        tbSentence.setFont(new java.awt.Font("DejaVu Serif", 0, 12)); // NOI18N
         tbSentence.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 tbSentenceMousePressed(evt);
@@ -384,7 +385,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
         jLabel1.setText("https://github.com/hongnguyenhuu96/ToolTagging");
 
-        tpSentence.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tpSentence.setFont(new java.awt.Font("DejaVu Serif", 0, 12)); // NOI18N
         tpSentence.setToolTipText("");
         jScrollPane1.setViewportView(tpSentence);
 
