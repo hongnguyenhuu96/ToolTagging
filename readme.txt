@@ -41,3 +41,4 @@ If you try to open the original file, the tagged file will be regenerate and rew
 
 For example "sentences.csv" is the original file and "tagged_sentences.csv" is the tagged file.
 You must open "tagged_sentences.csv" for the next time if you want to continue to tag without losing tagged data of the previous time.
+5. To remove label, choose the text that contains label: for example "<prc>5000 dong </prc>" and click to remove label "prc" and get the result "5000 dong"

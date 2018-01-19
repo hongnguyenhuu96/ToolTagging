@@ -9,6 +9,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.Border;
@@ -65,7 +66,7 @@ public class MainFrame extends javax.swing.JFrame {
     File taggedFile = null; // file to save to current stage of all sentences in tagging process
 
 //    File labelFile = new File("/home/hong/Desktop/code/ToolTagging/label.txt");
-//    File sentenceFile = new File("/home/hong/Desktop/code/ToolTagging/tagged_sentences.csv");
+//    File sentenceFile = new File("/home/hong/Desktop/code/ToolTagging/tagged_giaothong1.csv");
 //    File taggedFile = null;
     
     /**
@@ -92,6 +93,8 @@ public class MainFrame extends javax.swing.JFrame {
         cloneSentence(copySentences, sentences);
         sizeSentence = sentences.size();
         currentSentenceNum = 0;
+        tpSentence.setLineWrap(true);
+        tpSentence.setWrapStyleWord(true);
         tpSentence.setText(sentences.get(currentSentenceNum).content);
         temp = tpSentence.getText();
         loadTable(0);
@@ -146,10 +149,9 @@ public class MainFrame extends javax.swing.JFrame {
             }
         };
         tbSentence.setModel(dataModel);
-
-        tbSentence.getColumnModel().getColumn(0).setPreferredWidth(20);
-        tbSentence.getColumnModel().getColumn(1).setPreferredWidth(700);
-        tbSentence.getColumnModel().getColumn(2).setPreferredWidth(80);
+        tbSentence.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tbSentence.getColumnModel().getColumn(1).setPreferredWidth(1000);
+        tbSentence.getColumnModel().getColumn(2).setPreferredWidth(50);
         tbSentence.setRowSelectionInterval(i, i);
     }
     /**
@@ -248,6 +250,7 @@ public class MainFrame extends javax.swing.JFrame {
         btNext = new javax.swing.JButton();
         btConsider = new javax.swing.JButton();
         btStatus = new javax.swing.JButton();
+        btRmLabel = new javax.swing.JButton();
         btRemove = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbSentence = new javax.swing.JTable();
@@ -257,8 +260,8 @@ public class MainFrame extends javax.swing.JFrame {
         btAddLabel = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tpSentence = new javax.swing.JEditorPane();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tpSentence = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -268,7 +271,7 @@ public class MainFrame extends javax.swing.JFrame {
         pnLabels.setLayout(pnLabelsLayout);
         pnLabelsLayout.setHorizontalGroup(
             pnLabelsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 940, Short.MAX_VALUE)
+            .addGap(0, 784, Short.MAX_VALUE)
         );
         pnLabelsLayout.setVerticalGroup(
             pnLabelsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -333,6 +336,15 @@ public class MainFrame extends javax.swing.JFrame {
         });
         jPanel2.add(btStatus);
 
+        btRmLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btRmLabel.setText("Rm Label");
+        btRmLabel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btRmLabelActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btRmLabel);
+
         btRemove.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btRemove.setText("Remove");
         btRemove.addActionListener(new java.awt.event.ActionListener() {
@@ -385,19 +397,19 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
         jLabel1.setText("https://github.com/hongnguyenhuu96/ToolTagging");
 
-        tpSentence.setFont(new java.awt.Font("DejaVu Serif", 0, 12)); // NOI18N
-        tpSentence.setToolTipText("");
-        jScrollPane1.setViewportView(tpSentence);
+        tpSentence.setColumns(20);
+        tpSentence.setRows(5);
+        jScrollPane3.setViewportView(tpSentence);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane3)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -613,6 +625,7 @@ public class MainFrame extends javax.swing.JFrame {
             return;
         }
         sentences.remove(currentSentenceNum);
+        copySentences.remove(currentSentenceNum);
         sizeSentence = sentences.size();
         if(currentSentenceNum == sentences.size()){
             currentSentenceNum = currentSentenceNum -1;
@@ -622,6 +635,35 @@ public class MainFrame extends javax.swing.JFrame {
         tpSentence.setText(asentence.content);
         temp = tpSentence.getText();
     }//GEN-LAST:event_btRemoveActionPerformed
+
+    private void btRmLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRmLabelActionPerformed
+        temp = tpSentence.getText();
+        int selectionStart = tpSentence.getSelectionStart();
+        int selectionEnd = tpSentence.getSelectionEnd();
+        if (selectionStart == selectionEnd) {
+            return;
+        }
+        while (temp.charAt(selectionStart) == ' ') {
+            selectionStart++;
+        }
+        while (temp.charAt(selectionEnd - 1) == ' ') {
+            selectionEnd--;
+        }
+        if (selectionStart == selectionEnd) {
+            return;
+        }
+        StringBuilder strBuilder = new StringBuilder(tpSentence.getText());
+        String result = tpSentence.getSelectedText();
+        for (int i = 0; i < labels.size(); i++) {
+            result = result.replaceAll("<" + labels.get(i).symbol + ">", "");
+            result = result.replaceAll("</" + labels.get(i).symbol + ">", "");
+        }
+        strBuilder.replace(selectionStart, selectionEnd, result);
+        tpSentence.setText(strBuilder.toString());
+        tpSentence.requestFocus();
+        tpSentence.setSelectionStart(selectionStart);
+        tpSentence.setSelectionEnd(selectionStart + result.length());
+    }//GEN-LAST:event_btRmLabelActionPerformed
     
     /**
      * use save the status string pass from ChangeStatusOfSentence frame via mainFrame
@@ -751,6 +793,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton btOpenSentence;
     private javax.swing.JButton btReStore;
     private javax.swing.JButton btRemove;
+    private javax.swing.JButton btRmLabel;
     private javax.swing.JButton btStatus;
     private javax.swing.JButton btUndo;
     private javax.swing.ButtonGroup btgrCategories;
@@ -760,10 +803,10 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPanel pnLabels;
     private javax.swing.JTable tbSentence;
-    private javax.swing.JEditorPane tpSentence;
+    private javax.swing.JTextArea tpSentence;
     // End of variables declaration//GEN-END:variables
 }
